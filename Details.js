@@ -2,10 +2,13 @@ import React from 'react';
 import {View, Text, StatusBar, Button} from 'react-native';
 import {WebView} from 'react-native-webview';
 
-let VIDEO_URL = '';
 export default class Details extends React.Component {
   static navigationOptions = {
     header: null,
+  };
+  state = {
+    showBtn: false,
+    videoUrl: '', // 网站中的视频地址
   };
   render() {
     return (
@@ -14,16 +17,24 @@ export default class Details extends React.Component {
         <WebView
           ref={'webView'}
           source={{uri: this.props.navigation.getParam('url')}}
-          onNavigationStateChange={event => (VIDEO_URL = event.url)}
-        />
-        <Button
-          title={'VIP播放'}
-          onPress={() => {
-            this.props.navigation.navigate('Play', {
-              videoUrl: VIDEO_URL,
-            });
+          onNavigationStateChange={event => {
+            const url = event.url;
+            const iqiyi = 'm.iqiyi.com/.*html';
+            if (url.match(iqiyi) && url.match(iqiyi).length > 0) {
+              this.setState({videoUrl: url, showBtn: true});
+            }
           }}
         />
+        {this.state.showBtn ? (
+          <Button
+            title={'VIP播放'}
+            onPress={() =>
+              this.props.navigation.navigate('Play', {
+                videoUrl: this.state.videoUrl,
+              })
+            }
+          />
+        ) : null}
       </View>
     );
   }

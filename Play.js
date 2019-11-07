@@ -9,10 +9,20 @@ import {
 } from 'react-native';
 import {WebView} from 'react-native-webview';
 
+// 有些页面有广告，模拟点击关闭
+// http://jx.du2.cc/ 解析的有广告
+let INJECTED_JAVASCRIPT = `(
+  window.onload = function () {
+    if(document.getElementsByTagName('img')) {
+      document.getElementsByTagName('img')[0].click();
+    }
+  }
+)();`;
 export default class Play extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
   render() {
     return (
       <View style={{flex: 1}}>
@@ -20,6 +30,8 @@ export default class Play extends React.Component {
         <WebView
           javaScriptEnabled={true}
           allowsFullscreenVideo={true}
+          androidHardwareAccelerationDisabled={false} // 硬件加速开启可能黑屏
+          injectedJavaScript={INJECTED_JAVASCRIPT} // 关闭广告
           source={{
             uri:
               'http://jx.du2.cc/?url=' +

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Button} from 'react-native';
+import {View, Button, StatusBar} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import Details from './Details';
@@ -14,6 +14,7 @@ class VideoList extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
+        <StatusBar hidden={true} translucent={true} />
         <Button
           title={'打开爱奇艺'}
           onPress={() =>
