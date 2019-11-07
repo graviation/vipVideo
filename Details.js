@@ -22,14 +22,19 @@ export default class Details extends React.Component {
             const url = event.url;
             const iqiyi = 'm.iqiyi.com/.*html'; // 爱奇艺视频播放链接正则
             const tengxun = 'm.v.qq.com/.*html'; // 腾讯视频播放链接正则
-            const youku = 'm.youku.com/alipay_video/id.*html'; // 优酷视频播放链接正则
+            const youku = 'm.youku.com/.*video/id.*html'; // 优酷视频播放链接正则
             this.setState({videoUrl: url});
+            // 还有可能是search.html
             if (
               (url.match(iqiyi) && url.match(iqiyi).length > 0) ||
               (url.match(tengxun) && url.match(tengxun).length > 0) ||
               (url.match(youku) && url.match(youku).length > 0)
             ) {
-              this.setState({videoUrl: url, showBtn: true});
+              if (url.indexOf('search.html') >= 0) {
+                this.setState({showBtn: false});
+              } else {
+                this.setState({videoUrl: url, showBtn: true});
+              }
             } else {
               this.setState({showBtn: false});
             }
@@ -48,6 +53,7 @@ export default class Details extends React.Component {
           />
         ) : null}
         {/*<Text>{navigation.getParam('jxUrl')}</Text>*/}
+        <Text>{this.state.videoUrl}</Text>
       </View>
     );
   }
