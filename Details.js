@@ -11,6 +11,7 @@ export default class Details extends React.Component {
     videoUrl: '', // 网站中的视频地址
   };
   render() {
+    const {navigation} = this.props;
     return (
       <View style={{flex: 1}}>
         <StatusBar hidden={true} translucent={true} />
@@ -36,16 +37,17 @@ export default class Details extends React.Component {
         />
         {this.state.showBtn ? (
           <Button
-            color={'orange'}
+            color={'red'}
             title={'VIP播放'}
             onPress={() =>
-              this.props.navigation.navigate('Play', {
+              navigation.navigate('Play', {
                 videoUrl: this.state.videoUrl,
+                jxUrl: navigation.getParam('jxUrl'),
               })
             }
           />
         ) : null}
-        {/*<Text>{this.state.videoUrl}</Text>*/}
+        {/*<Text>{navigation.getParam('jxUrl')}</Text>*/}
       </View>
     );
   }

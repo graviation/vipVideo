@@ -24,6 +24,7 @@ export default class Play extends React.Component {
   };
 
   render() {
+    const {navigation} = this.props;
     return (
       <View style={{flex: 1}}>
         <StatusBar hidden={true} translucent={true} />
@@ -33,9 +34,7 @@ export default class Play extends React.Component {
           androidHardwareAccelerationDisabled={false} // 硬件加速开启可能黑屏
           injectedJavaScript={INJECTED_JAVASCRIPT} // 关闭广告
           source={{
-            uri:
-              'http://jx.du2.cc/?url=' +
-              this.props.navigation.getParam('videoUrl'),
+            uri: navigation.getParam('jxUrl') + navigation.getParam('videoUrl'),
           }}
         />
       </View>
