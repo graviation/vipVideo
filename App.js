@@ -2,153 +2,369 @@ import React from 'react';
 import {
   View,
   Button,
+  Image,
   Text,
   StatusBar,
-  Image,
   Dimensions,
+  ScrollView,
+  SafeAreaView,
+  StyleSheet,
   TouchableOpacity,
-  Picker,
 } from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import ScrollableTabView, {
+  DefaultTabBar,
+} from 'react-native-scrollable-tab-view';
+import WebView from 'react-native-webview';
 import Details from './Details';
 import Play from './Play';
+import TVPlay from './TVPlay';
 
-const {width, heigth} = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
+const startBarHeight = StatusBar.currentHeight;
 class VideoList extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
   state = {
-    jxUrl: 'http://jx.du2.cc/?url=',
+    jxUrl: 'https://jx.okokjx.com/okokjiexi/jiexi.php?url=', // 解析URL
+    lqUrl: '', // 领券URL
   };
 
   render() {
+    const {navigation} = this.props;
     return (
       <View
         style={{
           flex: 1,
-          marginTop: 40,
           flexDirection: 'row',
           flexWrap: 'wrap',
           justifyContent: 'space-around',
+          backgroundColor: '#FFF',
         }}>
-        <StatusBar hidden={true} translucent={true} />
-        {/*爱奇艺视频*/}
-        <TouchableOpacity
-          style={{height: width / 5}}
-          activeOpacity={0.8}
-          onPress={() =>
-            this.props.navigation.navigate('Details', {
-              url: 'https://m.iqiyi.com/',
-              jxUrl: this.state.jxUrl,
-            })
-          }>
-          <Image
-            source={require('./img/classify/aqiyi.jpg')}
-            style={{width: width / 5, height: width / 5, borderRadius: 10}}
-          />
-        </TouchableOpacity>
-        {/*腾讯视频*/}
-        <TouchableOpacity
-          style={{height: width / 5}}
-          activeOpacity={0.8}
-          onPress={() =>
-            this.props.navigation.navigate('Details', {
-              url: 'https://m.v.qq.com/',
-              jxUrl: this.state.jxUrl,
-            })
-          }>
-          <Image
-            source={require('./img/classify/tengxun.jpg')}
-            style={{width: width / 5, height: width / 5, borderRadius: 10}}
-          />
-        </TouchableOpacity>
-        {/*优酷视频*/}
-        <TouchableOpacity
-          style={{height: width / 5}}
-          activeOpacity={0.8}
-          onPress={() =>
-            this.props.navigation.navigate('Details', {
-              url: 'https://www.youku.com/',
-              jxUrl: this.state.jxUrl,
-            })
-          }>
-          <Image
-            source={require('./img/classify/youku.jpg')}
-            style={{width: width / 5, height: width / 5, borderRadius: 10}}
-          />
-        </TouchableOpacity>
-
-        <View
-          style={{
-            marginBottom: 0,
-            position: 'absolute',
-            bottom: 0,
-            left: 5,
-            right: 5,
-            width: width - 10,
-            borderWidth: 1,
-            borderColor: 'blue',
-            borderRadius: 5,
-            overflow: 'hidden',
-          }}>
-          <Text style={{marginLeft: 10, color: 'red', fontWeight: 'bold'}}>
-            使用方法：
-          </Text>
-          <Text style={{marginLeft: 10, color: '#000', fontWeight: 'normal'}}>
-            1、首先从该页面选择视频网站
-          </Text>
-          <Text style={{marginLeft: 10, color: '#000', fontWeight: 'normal'}}>
-            2、挑选想看的影片，包含
-            <Text style={{color: 'orange', fontWeight: 'bold'}}>VIP</Text>和
-            <Text style={{color: 'red', fontWeight: 'bold'}}>付费</Text>资源
-          </Text>
-          <Text style={{marginLeft: 10, color: '#000', fontWeight: 'normal'}}>
-            3、在视频页面底部会有
-            <Text
-              style={{
-                color: 'red',
-                backgroundColor: '#CCC',
-                fontWeight: 'bold',
-              }}>
-              VIP播放
+        <StatusBar
+          barStyle={'dark-content'}
+          translucent={true}
+          backgroundColor={'rgba(255,255,255,0)'} //颜色透明
+        />
+        <ScrollableTabView
+          style={{marginTop: startBarHeight}}
+          initialPage={0} // 默认选中的坐标
+          prerenderingSiblingsNumber={3} // 预加载几个页面
+          tabBarUnderlineStyle={{backgroundColor: '#6200EE', borderRadius: 5}} // 下划线样式
+          tabBarInactiveTextColor={'#232F34'} // 未选中的文本颜色
+          tabBarActiveTextColor={'#6200EE'} // 文字被选中后的颜色
+          renderTabBar={() => <DefaultTabBar />}>
+          <ScrollView
+            contentContainerStyle={{flex: 1}}
+            tabLabel="视频网站"
+            showsVerticalScrollIndicator={false}>
+            <ScrollView
+              contentContainerStyle={{flex: 1, flexDirection: 'column'}}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  marginTop: height / 45,
+                  height: height / 8,
+                }}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() =>
+                    this.props.navigation.navigate('Details', {
+                      url: 'https://m.iqiyi.com/',
+                      jxUrl: this.state.jxUrl,
+                    })
+                  }>
+                  <Image
+                    resizeMode={'contain'}
+                    source={require('./img/classify/network/iqiyi.png')}
+                    style={{
+                      height: height / 10,
+                      width: width / 5,
+                    }}
+                  />
+                </TouchableOpacity>
+                <Image
+                  resizeMode={'contain'}
+                  source={require('./img/classify/network/qqlogo.png')}
+                  style={{height: height / 10, width: width / 5}}
+                />
+                <Image
+                  resizeMode={'contain'}
+                  source={require('./img/classify/network/youkulogo.png')}
+                  style={{height: height / 10, width: width / 5}}
+                />
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  height: height / 8,
+                }}>
+                <Image
+                  resizeMode={'contain'}
+                  source={require('./img/classify/network/mangguotvlogo.png')}
+                  style={{
+                    height: height / 10,
+                    width: width / 5,
+                  }}
+                />
+                <Image
+                  resizeMode={'contain'}
+                  source={require('./img/classify/network/letvlogo.png')}
+                  style={{height: height / 10, width: width / 5}}
+                />
+                <Image
+                  resizeMode={'contain'}
+                  source={require('./img/classify/network/sohulogo.png')}
+                  style={{height: height / 10, width: width / 5}}
+                />
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  height: height / 8,
+                }}>
+                <Image
+                  resizeMode={'contain'}
+                  source={require('./img/classify/network/acfun.png')}
+                  style={{
+                    height: height / 10,
+                    width: width / 5,
+                  }}
+                />
+                <Image
+                  resizeMode={'contain'}
+                  source={require('./img/classify/network/bilibili.png')}
+                  style={{height: height / 10, width: width / 5}}
+                />
+                <Image
+                  resizeMode={'contain'}
+                  source={require('./img/classify/network/tudoulogo.png')}
+                  style={{height: height / 10, width: width / 5}}
+                />
+              </View>
+            </ScrollView>
+          </ScrollView>
+          <ScrollView
+            contentContainerStyle={{flex: 1, marginHorizontal: 15}}
+            tabLabel={'电视直播'}>
+            <Text style={{fontWeight: 'bold', fontSize: 18, color: '#B00020'}}>
+              热门频道
             </Text>
-            按钮，点击即播放
-          </Text>
-          <Text style={{marginLeft: 10}}>(全屏播放请把手机横过来)</Text>
-          <Text style={{marginLeft: 10, color: 'red', fontWeight: 'bold'}}>
-            选择解析接口↓，如播放正常不用切换。
-          </Text>
-          <View style={{width: width, height: 1, backgroundColor: '#CCC'}} />
-          <Picker
-            selectedValue={this.state.jxUrl}
-            style={{height: 50, color: 'green'}}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({jxUrl: itemValue})
-            }>
-            <Picker.Item
-              color={'green'}
-              label="稳定通用① 默认选择"
-              value="http://jx.du2.cc/?url="
+            <View>
+              {/*第一行*/}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  height: height / 8,
+                }}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('TVPlay', {
+                      m3u8: 'http://45.126.83.51/qwr9ew/s/s21/index2.m3u8',
+                    })
+                  }>
+                  <View
+                    style={{alignItems: 'center', justifyContent: 'center'}}>
+                    <Image
+                      resizeMode={'contain'}
+                      source={require('./img/classify/tv/hot/fhzxt.jpg')}
+                      style={styles.hotTvImageStyle}
+                    />
+                    <Text style={styles.hotTvTextStyle}>凤凰资讯</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('TVPlay', {
+                      m3u8: 'http://ivi.bupt.edu.cn/hls/hunanhd.m3u8',
+                    })
+                  }>
+                  <View
+                    style={{alignItems: 'center', justifyContent: 'center'}}>
+                    <Image
+                      resizeMode={'contain'}
+                      source={require('./img/classify/tv/hot/hunantv.jpg')}
+                      style={styles.hotTvImageStyle}
+                    />
+                    <Text style={styles.hotTvTextStyle}>湖南卫视</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('TVPlay', {
+                      // m3u8: 'http://ivi.bupt.edu.cn/hls/cctv13.m3u8',
+                      // m3u8: 'http://ivi.bupt.edu.cn/hls/cctv13hd.m3u8',
+                      // 'http://cctvalih5ca.v.myalicdn.com/live/cctv13_2/index.m3u8',
+                      // m3u8: 'http://liveali.ifeng.com/live/CCTV.m3u8',
+                      m3u8: 'http://ivi.bupt.edu.cn/hls/cctv13.m3u8',
+                    })
+                  }>
+                  <View
+                    style={{alignItems: 'center', justifyContent: 'center'}}>
+                    <Image
+                      resizeMode={'contain'}
+                      source={require('./img/classify/tv/hot/cctv13.jpg')}
+                      style={styles.hotTvImageStyle}
+                    />
+                    <Text style={styles.hotTvTextStyle}>新闻频道</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+              {/*第二行*/}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  height: height / 8,
+                }}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('TVPlay', {
+                      m3u8: 'http://ivi.bupt.edu.cn/hls/zjhd.m3u8',
+                    })
+                  }>
+                  <View
+                    style={{alignItems: 'center', justifyContent: 'center'}}>
+                    <Image
+                      resizeMode={'contain'}
+                      source={require('./img/classify/tv/hot/zhejiangtv.jpg')}
+                      style={styles.hotTvImageStyle}
+                    />
+                    <Text style={styles.hotTvTextStyle}>浙江卫视</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('TVPlay', {
+                      m3u8: 'http://ivi.bupt.edu.cn/hls/dfhd.m3u8',
+                    })
+                  }>
+                  <View
+                    style={{alignItems: 'center', justifyContent: 'center'}}>
+                    <Image
+                      resizeMode={'contain'}
+                      source={require('./img/classify/tv/hot/dongfang.jpg')}
+                      style={styles.hotTvImageStyle}
+                    />
+                    <Text style={styles.hotTvTextStyle}>东方卫视</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('TVPlay', {
+                      m3u8: 'http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8',
+                    })
+                  }>
+                  <View
+                    style={{alignItems: 'center', justifyContent: 'center'}}>
+                    <Image
+                      resizeMode={'contain'}
+                      source={require('./img/classify/tv/hot/cctv1.jpg')}
+                      style={styles.hotTvImageStyle}
+                    />
+                    <Text style={styles.hotTvTextStyle}>综合频道</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+              {/*第三行*/}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  height: height / 8,
+                }}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('TVPlay', {
+                      m3u8: 'http://ivi.bupt.edu.cn/hls/jshd.m3u8',
+                    })
+                  }>
+                  <View
+                    style={{alignItems: 'center', justifyContent: 'center'}}>
+                    <Image
+                      resizeMode={'contain'}
+                      source={require('./img/classify/tv/hot/jiangsutv.jpg')}
+                      style={styles.hotTvImageStyle}
+                    />
+                    <Text style={styles.hotTvTextStyle}>江苏卫视</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('TVPlay', {
+                      m3u8: 'http://ivi.bupt.edu.cn/hls/btv1hd.m3u8',
+                    })
+                  }>
+                  <View
+                    style={{alignItems: 'center', justifyContent: 'center'}}>
+                    <Image
+                      resizeMode={'contain'}
+                      source={require('./img/classify/tv/hot/beijingtv.jpg')}
+                      style={styles.hotTvImageStyle}
+                    />
+                    <Text style={styles.hotTvTextStyle}>北京卫视</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('TVPlay', {
+                      m3u8: 'http://ivi.bupt.edu.cn/hls/cctv6hd.m3u8',
+                    })
+                  }>
+                  <View
+                    style={{alignItems: 'center', justifyContent: 'center'}}>
+                    <Image
+                      resizeMode={'contain'}
+                      source={require('./img/classify/tv/hot/cctv6.jpg')}
+                      style={styles.hotTvImageStyle}
+                    />
+                    <Text style={styles.hotTvTextStyle}>电影频道</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <Text style={{fontWeight: 'bold', fontSize: 18}}>CCTV</Text>
+          </ScrollView>
+          <ScrollView
+            contentContainerStyle={{flex: 1}}
+            tabLabel={'搜优惠券'}
+            showsVerticalScrollIndicator={false}>
+            <WebView
+              javaScriptEnabled={true}
+              allowsFullscreenVideo={true}
+              androidHardwareAccelerationDisabled={false} // 硬件加速开启可能黑屏
+              source={{
+                uri: 'http://vip123321.wtnhyw.cn/',
+              }}
+              onNavigationStateChange={event => {
+                this.setState({url: event.url});
+              }}
             />
-            <Picker.Item
-              color={'green'}
-              label="稳定通用②"
-              value="http://jx.drgxj.com/?url="
-            />
-            <Picker.Item
-              color={'green'}
-              label="稳定通用③"
-              value="http://vip.jlsprh.com/?url="
-            />
-          </Picker>
-        </View>
+            <Text>{this.state.lqUrl}</Text>
+          </ScrollView>
+        </ScrollableTabView>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  hotTvImageStyle: {
+    height: height / 10,
+    width: width / 5,
+  },
+  hotTvTextStyle: {
+    fontSize: 9,
+    color: '#B00020',
+  },
+});
 
 const AppNavigator = createStackNavigator(
   {
@@ -159,7 +375,12 @@ const AppNavigator = createStackNavigator(
       screen: Details,
     },
     Play: {
+      // 视频网站播放信息
       screen: Play,
+    },
+    TVPlay: {
+      // 电视台播放信息
+      screen: TVPlay,
     },
   },
   {
