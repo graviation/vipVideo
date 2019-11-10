@@ -355,8 +355,202 @@ class VideoList extends React.Component {
                   </View>
                 </TouchableOpacity>
               </View>
+              {/*第四行*/}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  height: height / 8,
+                }}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('TVPlay', {
+                      m3u8: 'http://ivi.bupt.edu.cn/hls/btv10.m3u8',
+                    })
+                  }>
+                  <View
+                    style={{alignItems: 'center', justifyContent: 'center'}}>
+                    <Image
+                      resizeMode={'contain'}
+                      source={require('./img/classify/tv/kaku.jpg')}
+                      style={styles.hotTvImageStyle}
+                    />
+                    <Text style={styles.hotTvTextStyle}>卡酷少儿</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('TVPlay', {
+                      m3u8: 'http://ivi.bupt.edu.cn/hls/cctv11.m3u8',
+                    })
+                  }>
+                  <View
+                    style={{alignItems: 'center', justifyContent: 'center'}}>
+                    <Image
+                      resizeMode={'contain'}
+                      source={require('./img/classify/tv/cctv/cctv11.jpg')}
+                      style={styles.hotTvImageStyle}
+                    />
+                    <Text style={styles.hotTvTextStyle}>戏曲频道</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('TVPlay', {
+                      m3u8: 'http://ivi.bupt.edu.cn/hls/cctv7.m3u8',
+                    })
+                  }>
+                  <View
+                    style={{alignItems: 'center', justifyContent: 'center'}}>
+                    <Image
+                      resizeMode={'contain'}
+                      source={require('./img/classify/tv/cctv/cctv7.jpg')}
+                      style={styles.hotTvImageStyle}
+                    />
+                    <Text style={styles.hotTvTextStyle}>军事频道</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
             </View>
-            {/*<Text style={{fontWeight: 'bold', fontSize: 18}}>CCTV</Text>*/}
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 18,
+                color: '#B00020',
+                marginTop: 15,
+              }}>
+              电影直播
+            </Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                height: height / 8,
+                marginTop: 10,
+              }}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('TVPlay', {
+                    m3u8:
+                      'http://aldirect.hls.huya.com/huyalive/30765679-2504742278-10757786168918540288-3049003128-10057-A-0-1_1200.m3u8',
+                  })
+                }>
+                <View
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: 50,
+                    width: 100,
+                    backgroundColor: '#CCC',
+                    borderRadius: 5,
+                  }}>
+                  <Text style={styles.hotTvTextStyle}>好莱坞电影</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('TVPlay', {
+                    m3u8:
+                      'http://tx.hls.huya.com/huyalive/94525224-2460685722-10568564701724147712-2789253838-10057-A-0-1.m3u8',
+                  })
+                }>
+                <View
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: 50,
+                    width: 100,
+                    backgroundColor: '#CCC',
+                    borderRadius: 5,
+                  }}>
+                  <Text style={styles.hotTvTextStyle}>成龙电影</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('TVPlay', {
+                    m3u8:
+                      'http://tx.hls.huya.com/huyalive/94525224-2460686034-10568566041753944064-2789274542-10057-A-0-1.m3u8',
+                  })
+                }>
+                <View
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: 50,
+                    width: 100,
+                    backgroundColor: '#CCC',
+                    borderRadius: 5,
+                  }}>
+                  <Text style={styles.hotTvTextStyle}>林正英电影</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                height: height / 8,
+                marginTop: 10,
+              }}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('TVPlay', {
+                    m3u8:
+                      'http://tx.hls.huya.com/huyalive/30765679-2504742278-10757786168918540288-3049003128-10057-A-0-1.m3u8',
+                  })
+                }>
+                <View
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: 50,
+                    width: 100,
+                    backgroundColor: '#CCC',
+                    borderRadius: 5,
+                  }}>
+                  <Text style={styles.hotTvTextStyle}>漫威电影</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('TVPlay', {
+                    m3u8:
+                      'http://tx.hls.huya.com/huyalive/29106097-2689286606-11550398022340837376-2789274544-10057-A-0-1.m3u8',
+                  })
+                }>
+                <View
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: 50,
+                    width: 100,
+                    backgroundColor: '#CCC',
+                    borderRadius: 5,
+                  }}>
+                  <Text style={styles.hotTvTextStyle}>丧尸电影</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('TVPlay', {
+                    m3u8:
+                      'http://tx.hls.huya.com/huyalive/29106097-2689447600-11551089486305689600-2789274568-10057-A-1525420695-1.m3u8',
+                  })
+                }>
+                <View
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: 50,
+                    width: 100,
+                    backgroundColor: '#CCC',
+                    borderRadius: 5,
+                  }}>
+                  <Text style={styles.hotTvTextStyle}>惊悚电影</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </ScrollView>
           <ScrollView
             contentContainerStyle={{flex: 1}}
