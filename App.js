@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  Button,
   Image,
   Text,
   StatusBar,
@@ -16,10 +15,10 @@ import {createStackNavigator} from 'react-navigation-stack';
 import ScrollableTabView, {
   DefaultTabBar,
 } from 'react-native-scrollable-tab-view';
-import WebView from 'react-native-webview';
 import Details from './Details';
 import Play from './Play';
 import TVPlay from './TVPlay';
+import Store from './Store';
 
 const {width, height} = Dimensions.get('window');
 const startBarHeight = StatusBar.currentHeight;
@@ -87,67 +86,94 @@ class VideoList extends React.Component {
                     }}
                   />
                 </TouchableOpacity>
-                <Image
-                  resizeMode={'contain'}
-                  source={require('./img/classify/network/qqlogo.png')}
-                  style={{height: height / 10, width: width / 5}}
-                />
-                <Image
-                  resizeMode={'contain'}
-                  source={require('./img/classify/network/youkulogo.png')}
-                  style={{height: height / 10, width: width / 5}}
-                />
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() =>
+                    this.props.navigation.navigate('Details', {
+                      url: 'https://m.v.qq.com/',
+                      jxUrl: this.state.jxUrl,
+                    })
+                  }>
+                  <Image
+                    resizeMode={'contain'}
+                    source={require('./img/classify/network/qqlogo.png')}
+                    style={{height: height / 10, width: width / 5}}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() =>
+                    this.props.navigation.navigate('Details', {
+                      url: 'https://www.youku.com/',
+                      jxUrl: this.state.jxUrl,
+                    })
+                  }>
+                  <Image
+                    resizeMode={'contain'}
+                    source={require('./img/classify/network/youkulogo.png')}
+                    style={{height: height / 10, width: width / 5}}
+                  />
+                </TouchableOpacity>
               </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                  height: height / 8,
-                }}>
-                <Image
-                  resizeMode={'contain'}
-                  source={require('./img/classify/network/mangguotvlogo.png')}
-                  style={{
-                    height: height / 10,
-                    width: width / 5,
-                  }}
-                />
-                <Image
-                  resizeMode={'contain'}
-                  source={require('./img/classify/network/letvlogo.png')}
-                  style={{height: height / 10, width: width / 5}}
-                />
-                <Image
-                  resizeMode={'contain'}
-                  source={require('./img/classify/network/sohulogo.png')}
-                  style={{height: height / 10, width: width / 5}}
-                />
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                  height: height / 8,
-                }}>
-                <Image
-                  resizeMode={'contain'}
-                  source={require('./img/classify/network/acfun.png')}
-                  style={{
-                    height: height / 10,
-                    width: width / 5,
-                  }}
-                />
-                <Image
-                  resizeMode={'contain'}
-                  source={require('./img/classify/network/bilibili.png')}
-                  style={{height: height / 10, width: width / 5}}
-                />
-                <Image
-                  resizeMode={'contain'}
-                  source={require('./img/classify/network/tudoulogo.png')}
-                  style={{height: height / 10, width: width / 5}}
-                />
-              </View>
+              {/*<View*/}
+              {/*  style={{*/}
+              {/*    flexDirection: 'row',*/}
+              {/*    justifyContent: 'space-around',*/}
+              {/*    height: height / 8,*/}
+              {/*  }}>*/}
+              {/*  <TouchableOpacity*/}
+              {/*    activeOpacity={0.8}*/}
+              {/*    onPress={() =>*/}
+              {/*      this.props.navigation.navigate('Details', {*/}
+              {/*        url: 'https://m.mgtv.com/',*/}
+              {/*        jxUrl: this.state.jxUrl,*/}
+              {/*      })*/}
+              {/*    }>*/}
+              {/*    <Image*/}
+              {/*      resizeMode={'contain'}*/}
+              {/*      source={require('./img/classify/network/mangguotvlogo.png')}*/}
+              {/*      style={{*/}
+              {/*        height: height / 10,*/}
+              {/*        width: width / 5,*/}
+              {/*      }}*/}
+              {/*    />*/}
+              {/*  </TouchableOpacity>*/}
+              {/*  <Image*/}
+              {/*    resizeMode={'contain'}*/}
+              {/*    source={require('./img/classify/network/letvlogo.png')}*/}
+              {/*    style={{height: height / 10, width: width / 5}}*/}
+              {/*  />*/}
+              {/*  <Image*/}
+              {/*    resizeMode={'contain'}*/}
+              {/*    source={require('./img/classify/network/sohulogo.png')}*/}
+              {/*    style={{height: height / 10, width: width / 5}}*/}
+              {/*  />*/}
+              {/*</View>*/}
+              {/*<View*/}
+              {/*  style={{*/}
+              {/*    flexDirection: 'row',*/}
+              {/*    justifyContent: 'space-around',*/}
+              {/*    height: height / 8,*/}
+              {/*  }}>*/}
+              {/*  <Image*/}
+              {/*    resizeMode={'contain'}*/}
+              {/*    source={require('./img/classify/network/acfun.png')}*/}
+              {/*    style={{*/}
+              {/*      height: height / 10,*/}
+              {/*      width: width / 5,*/}
+              {/*    }}*/}
+              {/*  />*/}
+              {/*  <Image*/}
+              {/*    resizeMode={'contain'}*/}
+              {/*    source={require('./img/classify/network/bilibili.png')}*/}
+              {/*    style={{height: height / 10, width: width / 5}}*/}
+              {/*  />*/}
+              {/*  <Image*/}
+              {/*    resizeMode={'contain'}*/}
+              {/*    source={require('./img/classify/network/tudoulogo.png')}*/}
+              {/*    style={{height: height / 10, width: width / 5}}*/}
+              {/*  />*/}
+              {/*</View>*/}
             </ScrollView>
           </ScrollView>
           <ScrollView
@@ -330,24 +356,14 @@ class VideoList extends React.Component {
                 </TouchableOpacity>
               </View>
             </View>
-            <Text style={{fontWeight: 'bold', fontSize: 18}}>CCTV</Text>
+            {/*<Text style={{fontWeight: 'bold', fontSize: 18}}>CCTV</Text>*/}
           </ScrollView>
           <ScrollView
             contentContainerStyle={{flex: 1}}
             tabLabel={'搜优惠券'}
+            key={'store'}
             showsVerticalScrollIndicator={false}>
-            <WebView
-              javaScriptEnabled={true}
-              allowsFullscreenVideo={true}
-              androidHardwareAccelerationDisabled={false} // 硬件加速开启可能黑屏
-              source={{
-                uri: 'http://vip123321.wtnhyw.cn/',
-              }}
-              onNavigationStateChange={event => {
-                this.setState({url: event.url});
-              }}
-            />
-            <Text>{this.state.lqUrl}</Text>
+            <Store />
           </ScrollView>
         </ScrollableTabView>
       </View>
@@ -381,6 +397,10 @@ const AppNavigator = createStackNavigator(
     TVPlay: {
       // 电视台播放信息
       screen: TVPlay,
+    },
+    Store: {
+      // 商城页面
+      screen: Store,
     },
   },
   {

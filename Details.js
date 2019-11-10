@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, StatusBar, Button} from 'react-native';
+import {
+  View,
+  Text,
+  StatusBar,
+  Button,
+  BackHandler,
+  ToastAndroid,
+} from 'react-native';
 import {WebView} from 'react-native-webview';
 
 export default class Details extends React.Component {
@@ -10,6 +17,27 @@ export default class Details extends React.Component {
     showBtn: false,
     videoUrl: '', // 网站中的视频地址
   };
+
+  handleBackPress = () => {
+    // 如果当前页面是视频网站的首页，就要退到应用的首页去啦，不要在webview里跳转啦
+    if (
+      this.state.videoUrl.endsWith('.com/') ||
+      this.state.videoUrl.endsWith('.com')
+    ) {
+      return false;
+    }
+    this.refs.webView.goBack(); // 在webview中返回一页
+    return true;
+  };
+
+  componentDidMount(): void {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  componentWillUnmount(): void {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
   render() {
     const {navigation} = this.props;
     return (
@@ -17,12 +45,14 @@ export default class Details extends React.Component {
         <StatusBar hidden={true} translucent={true} />
         <WebView
           ref={'webView'}
-          source={{uri: this.props.navigation.getParam('url')}}
+          androidHardwareAccelerationDisabled={true}
+          source={{uri: this.props.navigation.getParam('url'), header: {}}}
           onNavigationStateChange={event => {
             const url = event.url;
             const iqiyi = 'm.iqiyi.com/.*html'; // 爱奇艺视频播放链接正则
             const tengxun = 'm.v.qq.com/.*html'; // 腾讯视频播放链接正则
             const youku = 'm.youku.com/.*video/id.*html'; // 优酷视频播放链接正则
+            const mangguo = 'm.mgtv.com/.*/d*html'; // 芒果TV播放链接正则
             this.setState({videoUrl: url});
             // 还有可能是search.html
             if (
@@ -53,7 +83,7 @@ export default class Details extends React.Component {
           />
         ) : null}
         {/*<Text>{navigation.getParam('jxUrl')}</Text>*/}
-        <Text>{this.state.videoUrl}</Text>
+        {/*<Text>{this.state.videoUrl}</Text>*/}
       </View>
     );
   }
