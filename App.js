@@ -19,6 +19,7 @@ import Details from './Details';
 import Play from './Play';
 import TVPlay from './TVPlay';
 import Store from './Store';
+import NoNet from './NoNet';
 
 const {width, height} = Dimensions.get('window');
 const startBarHeight = StatusBar.currentHeight;
@@ -32,6 +33,21 @@ class VideoList extends React.Component {
     lqUrl: '', // 领券URL
   };
 
+  // 获取链接等数据源信息
+  // *** 如果请求出错就加载内存中保存的数据
+  _getData = () => {
+    fetch(
+      'http://hb9.api.yesapi.cn/?service=App.Main_Meta.Get&app_key=463DA345D222E8E0CFD72E747F10ACB7&key=vip_video_data',
+    )
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log('获得到具体数据： ', responseJson.data.data);
+      });
+  };
+  componentDidMount(): void {
+    this._getData();
+  }
+
   render() {
     const {navigation} = this.props;
     return (
@@ -43,11 +59,14 @@ class VideoList extends React.Component {
           justifyContent: 'space-around',
           backgroundColor: '#FFF',
         }}>
+        {/* 状态栏设置 */}
         <StatusBar
           barStyle={'dark-content'}
           translucent={true}
           backgroundColor={'rgba(255,255,255,0)'} //颜色透明
         />
+        {/* 网络监听 */}
+        <NoNet />
         <ScrollableTabView
           style={{marginTop: startBarHeight}}
           initialPage={0} // 默认选中的坐标
@@ -115,65 +134,6 @@ class VideoList extends React.Component {
                   />
                 </TouchableOpacity>
               </View>
-              {/*<View*/}
-              {/*  style={{*/}
-              {/*    flexDirection: 'row',*/}
-              {/*    justifyContent: 'space-around',*/}
-              {/*    height: height / 8,*/}
-              {/*  }}>*/}
-              {/*  <TouchableOpacity*/}
-              {/*    activeOpacity={0.8}*/}
-              {/*    onPress={() =>*/}
-              {/*      this.props.navigation.navigate('Details', {*/}
-              {/*        url: 'https://m.mgtv.com/',*/}
-              {/*        jxUrl: this.state.jxUrl,*/}
-              {/*      })*/}
-              {/*    }>*/}
-              {/*    <Image*/}
-              {/*      resizeMode={'contain'}*/}
-              {/*      source={require('./img/classify/network/mangguotvlogo.png')}*/}
-              {/*      style={{*/}
-              {/*        height: height / 10,*/}
-              {/*        width: width / 5,*/}
-              {/*      }}*/}
-              {/*    />*/}
-              {/*  </TouchableOpacity>*/}
-              {/*  <Image*/}
-              {/*    resizeMode={'contain'}*/}
-              {/*    source={require('./img/classify/network/letvlogo.png')}*/}
-              {/*    style={{height: height / 10, width: width / 5}}*/}
-              {/*  />*/}
-              {/*  <Image*/}
-              {/*    resizeMode={'contain'}*/}
-              {/*    source={require('./img/classify/network/sohulogo.png')}*/}
-              {/*    style={{height: height / 10, width: width / 5}}*/}
-              {/*  />*/}
-              {/*</View>*/}
-              {/*<View*/}
-              {/*  style={{*/}
-              {/*    flexDirection: 'row',*/}
-              {/*    justifyContent: 'space-around',*/}
-              {/*    height: height / 8,*/}
-              {/*  }}>*/}
-              {/*  <Image*/}
-              {/*    resizeMode={'contain'}*/}
-              {/*    source={require('./img/classify/network/acfun.png')}*/}
-              {/*    style={{*/}
-              {/*      height: height / 10,*/}
-              {/*      width: width / 5,*/}
-              {/*    }}*/}
-              {/*  />*/}
-              {/*  <Image*/}
-              {/*    resizeMode={'contain'}*/}
-              {/*    source={require('./img/classify/network/bilibili.png')}*/}
-              {/*    style={{height: height / 10, width: width / 5}}*/}
-              {/*  />*/}
-              {/*  <Image*/}
-              {/*    resizeMode={'contain'}*/}
-              {/*    source={require('./img/classify/network/tudoulogo.png')}*/}
-              {/*    style={{height: height / 10, width: width / 5}}*/}
-              {/*  />*/}
-              {/*</View>*/}
             </ScrollView>
           </ScrollView>
           <ScrollView
@@ -497,7 +457,7 @@ class VideoList extends React.Component {
                 onPress={() =>
                   navigation.navigate('TVPlay', {
                     m3u8:
-                      'http://tx.hls.huya.com/huyalive/30765679-2504742278-10757786168918540288-3049003128-10057-A-0-1.m3u8',
+                      'http://tx.hls.huya.com/huyalive/94525224-2460685313-10568562945082523648-2789274524-10057-A-0-1.m3u8',
                   })
                 }>
                 <View
@@ -509,7 +469,7 @@ class VideoList extends React.Component {
                     backgroundColor: '#CCC',
                     borderRadius: 5,
                   }}>
-                  <Text style={styles.hotTvTextStyle}>漫威电影</Text>
+                  <Text style={styles.hotTvTextStyle}>周星驰电影</Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
@@ -595,6 +555,10 @@ const AppNavigator = createStackNavigator(
     Store: {
       // 商城页面
       screen: Store,
+    },
+    NoNet: {
+      // 网络监控页面
+      screen: NoNet,
     },
   },
   {
