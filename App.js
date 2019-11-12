@@ -20,6 +20,7 @@ import Play from './Play';
 import TVPlay from './TVPlay';
 import Store from './Store';
 import NoNet from './NoNet';
+import ApiUtil from './ApiUtil';
 
 const {width, height} = Dimensions.get('window');
 const startBarHeight = StatusBar.currentHeight;
@@ -31,21 +32,12 @@ class VideoList extends React.Component {
   state = {
     jxUrl: 'https://jx.okokjx.com/okokjiexi/jiexi.php?url=', // 解析URL
     lqUrl: '', // 领券URL
+    mallLink: '',
   };
 
-  // 获取链接等数据源信息
-  // *** 如果请求出错就加载内存中保存的数据
-  _getData = () => {
-    fetch(
-      'http://hb9.api.yesapi.cn/?service=App.Main_Meta.Get&app_key=463DA345D222E8E0CFD72E747F10ACB7&key=vip_video_data',
-    )
-      .then(response => response.json())
-      .then(responseJson => {
-        console.log('获得到具体数据： ', responseJson.data.data);
-      });
-  };
   componentDidMount(): void {
-    this._getData();
+    // 获取所需要的参数
+    ApiUtil.initGlobalData();
   }
 
   render() {

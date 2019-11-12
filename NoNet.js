@@ -8,8 +8,10 @@ import {
   Dimensions,
   TouchableOpacity,
   Linking,
+  NativeModules,
 } from 'react-native';
 import NetInfo, {NetInfoSubscription} from '@react-native-community/netinfo';
+import ApiUtil from './ApiUtil';
 
 // 监听APP的联网情况，如果未链接，则显示该页面
 const {width, height} = Dimensions.get('window');
@@ -23,6 +25,7 @@ export default class NoNet extends React.Component {
         this.setState({showModal: true});
       } else {
         this.setState({showModal: false});
+        ApiUtil.initGlobalData();
       }
     });
   }
@@ -57,7 +60,7 @@ export default class NoNet extends React.Component {
           />
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => Linking.openURL('Set')}>
+            onPress={() => NativeModules.BaseModule.openSettings()}>
             <View
               style={{
                 backgroundColor: '#6200EE',

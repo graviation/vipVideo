@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {WebView} from 'react-native-webview';
+import Global from './Global';
 
 /**
  * 商城页面
@@ -18,24 +19,37 @@ export default class Store extends React.Component {
     header: null,
   };
   state = {
-    storeUrl: 'http://vip123321.wtnhyw.cn/', // 网站中的视频地址
     currentUrl: '',
   };
+  componentDidMount(): void {
+    console.log('componentDidMount()...');
+  }
 
   render() {
     const {navigation} = this.props;
     return (
-      <WebView
-        ref={'webView'}
-        javaScriptEnabled={true}
-        androidHardwareAccelerationDisabled={false} // 硬件加速开启可能黑屏
-        source={{
-          uri: this.state.storeUrl,
-        }}
-        onNavigationStateChange={event => {
-          this.setState({currentUrl: event.url});
-        }}
-      />
+      <View style={{flex: 1}}>
+        <Text>{Global.mallLink}</Text>
+        <WebView
+          ref={'webView'}
+          javaScriptEnabled={true}
+          androidHardwareAccelerationDisabled={false} // 硬件加速开启可能黑屏
+          source={{
+            uri: Global.mallLink,
+          }}
+          onNavigationStateChange={event => {
+            this.setState({currentUrl: event.url});
+          }}
+          onLoadStart={syntheticEvent => {
+            const {nativeEvent} = syntheticEvent;
+            console.warn(nativeEvent.loading);
+          }}
+          onError={syntheticEvent => {
+            const {nativeEvent} = syntheticEvent;
+            console.warn('WebView error: ', nativeEvent);
+          }}
+        />
+      </View>
     );
   }
 }
