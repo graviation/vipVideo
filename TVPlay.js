@@ -12,7 +12,7 @@ export default class TVPlay extends React.Component {
   _tvPlayBackPress = () => {
     console.log('TVPlay页面点击返回按钮');
     this.props.navigation.goBack();
-  }
+  };
 
   componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this._tvPlayBackPress);
@@ -34,7 +34,7 @@ export default class TVPlay extends React.Component {
             type: 'm3u8',
           }}
           resizeMode={'contain'}
-          repeat={true}
+          repeat={false}
         />
       </View>
     );
