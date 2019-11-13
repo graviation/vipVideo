@@ -15,6 +15,8 @@ import {createStackNavigator} from 'react-navigation-stack';
 import ScrollableTabView, {
   DefaultTabBar,
 } from 'react-native-scrollable-tab-view';
+import Global from './Global';
+import SplashScreen from 'react-native-splash-screen';
 import Details from './Details';
 import Play from './Play';
 import TVPlay from './TVPlay';
@@ -29,15 +31,16 @@ class VideoList extends React.Component {
     header: null,
   };
 
-  state = {
-    jxUrl: 'https://jx.okokjx.com/okokjiexi/jiexi.php?url=', // 解析URL
-    lqUrl: '', // 领券URL
-    mallLink: '',
-  };
+  // state = {
+  // jxUrl: 'https://jx.okokjx.com/okokjiexi/jiexi.php?url=', // 解析URL
+  // jxUrl: 'https://jx.wslmf.com/?url=',
+  // lqUrl: '', // 领券URL
+  // mallLink: '',
+  // };
 
   componentDidMount(): void {
     // 获取所需要的参数
-    ApiUtil.initGlobalData();
+    ApiUtil.initGlobalData().then(r => SplashScreen.hide());
   }
 
   render() {
@@ -85,7 +88,7 @@ class VideoList extends React.Component {
                   onPress={() =>
                     this.props.navigation.navigate('Details', {
                       url: 'https://m.iqiyi.com/',
-                      jxUrl: this.state.jxUrl,
+                      jxUrl: Global.vipAnalysisUrl,
                     })
                   }>
                   <Image
@@ -102,7 +105,7 @@ class VideoList extends React.Component {
                   onPress={() =>
                     this.props.navigation.navigate('Details', {
                       url: 'https://m.v.qq.com/',
-                      jxUrl: this.state.jxUrl,
+                      jxUrl: Global.vipAnalysisUrl,
                     })
                   }>
                   <Image
@@ -116,7 +119,7 @@ class VideoList extends React.Component {
                   onPress={() =>
                     this.props.navigation.navigate('Details', {
                       url: 'https://www.youku.com/',
-                      jxUrl: this.state.jxUrl,
+                      jxUrl: Global.vipAnalysisUrl,
                     })
                   }>
                   <Image
@@ -145,7 +148,8 @@ class VideoList extends React.Component {
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate('TVPlay', {
-                      m3u8: 'http://45.126.83.51/qwr9ew/s/s21/index2.m3u8',
+                      // m3u8: 'http://45.126.83.51/qwr9ew/s/s21/index2.m3u8',
+                      m3u8: Global.tv.fenghuang,
                     })
                   }>
                   <View
@@ -161,7 +165,8 @@ class VideoList extends React.Component {
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate('TVPlay', {
-                      m3u8: 'http://ivi.bupt.edu.cn/hls/hunanhd.m3u8',
+                      // m3u8: 'http://ivi.bupt.edu.cn/hls/hunanhd.m3u8',
+                      m3u8: Global.tv.hunan,
                     })
                   }>
                   <View
@@ -178,10 +183,7 @@ class VideoList extends React.Component {
                   onPress={() =>
                     navigation.navigate('TVPlay', {
                       // m3u8: 'http://ivi.bupt.edu.cn/hls/cctv13.m3u8',
-                      // m3u8: 'http://ivi.bupt.edu.cn/hls/cctv13hd.m3u8',
-                      // 'http://cctvalih5ca.v.myalicdn.com/live/cctv13_2/index.m3u8',
-                      // m3u8: 'http://liveali.ifeng.com/live/CCTV.m3u8',
-                      m3u8: 'http://ivi.bupt.edu.cn/hls/cctv13.m3u8',
+                      m3u8: Global.tv.cctv13,
                     })
                   }>
                   <View
@@ -205,7 +207,8 @@ class VideoList extends React.Component {
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate('TVPlay', {
-                      m3u8: 'http://ivi.bupt.edu.cn/hls/zjhd.m3u8',
+                      // m3u8: 'http://ivi.bupt.edu.cn/hls/zjhd.m3u8',
+                      m3u8: Global.tv.zhejiang,
                     })
                   }>
                   <View
@@ -221,7 +224,8 @@ class VideoList extends React.Component {
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate('TVPlay', {
-                      m3u8: 'http://ivi.bupt.edu.cn/hls/dfhd.m3u8',
+                      // m3u8: 'http://ivi.bupt.edu.cn/hls/dfhd.m3u8',
+                      m3u8: Global.tv.dongfang,
                     })
                   }>
                   <View
@@ -237,7 +241,8 @@ class VideoList extends React.Component {
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate('TVPlay', {
-                      m3u8: 'http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8',
+                      // m3u8: 'http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8',
+                      m3u8: Global.tv.cctv1,
                     })
                   }>
                   <View
@@ -261,7 +266,8 @@ class VideoList extends React.Component {
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate('TVPlay', {
-                      m3u8: 'http://ivi.bupt.edu.cn/hls/jshd.m3u8',
+                      // m3u8: 'http://ivi.bupt.edu.cn/hls/jshd.m3u8',
+                      m3u8: Global.tv.jiangsu,
                     })
                   }>
                   <View
@@ -277,7 +283,8 @@ class VideoList extends React.Component {
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate('TVPlay', {
-                      m3u8: 'http://ivi.bupt.edu.cn/hls/btv1hd.m3u8',
+                      // m3u8: 'http://ivi.bupt.edu.cn/hls/btv1hd.m3u8',
+                      m3u8: Global.tv.beijingws,
                     })
                   }>
                   <View
@@ -293,7 +300,8 @@ class VideoList extends React.Component {
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate('TVPlay', {
-                      m3u8: 'http://ivi.bupt.edu.cn/hls/cctv6hd.m3u8',
+                      // m3u8: 'http://ivi.bupt.edu.cn/hls/cctv6hd.m3u8',
+                      m3u8: Global.tv.cctv6,
                     })
                   }>
                   <View
@@ -317,7 +325,8 @@ class VideoList extends React.Component {
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate('TVPlay', {
-                      m3u8: 'http://ivi.bupt.edu.cn/hls/btv10.m3u8',
+                      // m3u8: 'http://ivi.bupt.edu.cn/hls/btv10.m3u8',
+                      m3u8: Global.tv.kaku,
                     })
                   }>
                   <View
@@ -333,7 +342,8 @@ class VideoList extends React.Component {
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate('TVPlay', {
-                      m3u8: 'http://ivi.bupt.edu.cn/hls/cctv11.m3u8',
+                      // m3u8: 'http://ivi.bupt.edu.cn/hls/cctv11.m3u8',
+                      m3u8: Global.tv.cctv11,
                     })
                   }>
                   <View
@@ -349,7 +359,8 @@ class VideoList extends React.Component {
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate('TVPlay', {
-                      m3u8: 'http://ivi.bupt.edu.cn/hls/cctv7.m3u8',
+                      // m3u8: 'http://ivi.bupt.edu.cn/hls/cctv7.m3u8',
+                      m3u8: Global.tv.cctv7,
                     })
                   }>
                   <View
@@ -368,7 +379,7 @@ class VideoList extends React.Component {
               style={{
                 fontWeight: 'bold',
                 fontSize: 18,
-                color: '#B00020',
+                color: '#714cfe',
                 marginTop: 15,
               }}>
               电影直播
@@ -383,8 +394,9 @@ class VideoList extends React.Component {
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('TVPlay', {
-                    m3u8:
-                      'http://aldirect.hls.huya.com/huyalive/30765679-2504742278-10757786168918540288-3049003128-10057-A-0-1_1200.m3u8',
+                    // m3u8:
+                    //   'http://aldirect.hls.huya.com/huyalive/30765679-2504742278-10757786168918540288-3049003128-10057-A-0-1_1200.m3u8',
+                    m3u8: Global.movie.hlw,
                   })
                 }>
                 <View
@@ -393,17 +405,18 @@ class VideoList extends React.Component {
                     justifyContent: 'center',
                     height: 50,
                     width: 100,
-                    backgroundColor: '#CCC',
+                    backgroundColor: '#714cfe',
                     borderRadius: 5,
                   }}>
-                  <Text style={styles.hotTvTextStyle}>好莱坞电影</Text>
+                  <Text style={styles.movieTextStyle}>好莱坞电影</Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('TVPlay', {
-                    m3u8:
-                      'http://tx.hls.huya.com/huyalive/94525224-2460685722-10568564701724147712-2789253838-10057-A-0-1.m3u8',
+                    // m3u8:
+                    //   'http://tx.hls.huya.com/huyalive/94525224-2460685722-10568564701724147712-2789253838-10057-A-0-1.m3u8',
+                    m3u8: Global.movie.cl,
                   })
                 }>
                 <View
@@ -412,17 +425,18 @@ class VideoList extends React.Component {
                     justifyContent: 'center',
                     height: 50,
                     width: 100,
-                    backgroundColor: '#CCC',
+                    backgroundColor: '#714cfe',
                     borderRadius: 5,
                   }}>
-                  <Text style={styles.hotTvTextStyle}>成龙电影</Text>
+                  <Text style={styles.movieTextStyle}>成龙电影</Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('TVPlay', {
-                    m3u8:
-                      'http://tx.hls.huya.com/huyalive/94525224-2460686034-10568566041753944064-2789274542-10057-A-0-1.m3u8',
+                    // m3u8:
+                    //   'http://tx.hls.huya.com/huyalive/94525224-2460686034-10568566041753944064-2789274542-10057-A-0-1.m3u8',
+                    m3u8: Global.movie.lzy,
                   })
                 }>
                 <View
@@ -431,10 +445,10 @@ class VideoList extends React.Component {
                     justifyContent: 'center',
                     height: 50,
                     width: 100,
-                    backgroundColor: '#CCC',
+                    backgroundColor: '#714cfe',
                     borderRadius: 5,
                   }}>
-                  <Text style={styles.hotTvTextStyle}>林正英电影</Text>
+                  <Text style={styles.movieTextStyle}>林正英电影</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -443,13 +457,13 @@ class VideoList extends React.Component {
                 flexDirection: 'row',
                 justifyContent: 'space-around',
                 height: height / 8,
-                marginTop: 10,
               }}>
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('TVPlay', {
-                    m3u8:
-                      'http://tx.hls.huya.com/huyalive/94525224-2460685313-10568562945082523648-2789274524-10057-A-0-1.m3u8',
+                    // m3u8:
+                    //   'http://tx.hls.huya.com/huyalive/94525224-2460685313-10568562945082523648-2789274524-10057-A-0-1.m3u8',
+                    m3u8: Global.movie.zxc,
                   })
                 }>
                 <View
@@ -458,17 +472,18 @@ class VideoList extends React.Component {
                     justifyContent: 'center',
                     height: 50,
                     width: 100,
-                    backgroundColor: '#CCC',
+                    backgroundColor: '#714cfe',
                     borderRadius: 5,
                   }}>
-                  <Text style={styles.hotTvTextStyle}>周星驰电影</Text>
+                  <Text style={styles.movieTextStyle}>周星驰电影</Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('TVPlay', {
-                    m3u8:
-                      'http://tx.hls.huya.com/huyalive/29106097-2689286606-11550398022340837376-2789274544-10057-A-0-1.m3u8',
+                    // m3u8:
+                    //   'http://tx.hls.huya.com/huyalive/29106097-2689286606-11550398022340837376-2789274544-10057-A-0-1.m3u8',
+                    m3u8: Global.movie.ss,
                   })
                 }>
                 <View
@@ -477,17 +492,18 @@ class VideoList extends React.Component {
                     justifyContent: 'center',
                     height: 50,
                     width: 100,
-                    backgroundColor: '#CCC',
+                    backgroundColor: '#714cfe',
                     borderRadius: 5,
                   }}>
-                  <Text style={styles.hotTvTextStyle}>丧尸电影</Text>
+                  <Text style={styles.movieTextStyle}>丧尸电影</Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('TVPlay', {
-                    m3u8:
-                      'http://tx.hls.huya.com/huyalive/29106097-2689447600-11551089486305689600-2789274568-10057-A-1525420695-1.m3u8',
+                    // m3u8:
+                    //   'http://tx.hls.huya.com/huyalive/29106097-2689447600-11551089486305689600-2789274568-10057-A-1525420695-1.m3u8',
+                    m3u8: Global.movie.js,
                   })
                 }>
                 <View
@@ -496,17 +512,17 @@ class VideoList extends React.Component {
                     justifyContent: 'center',
                     height: 50,
                     width: 100,
-                    backgroundColor: '#CCC',
+                    backgroundColor: '#714cfe',
                     borderRadius: 5,
                   }}>
-                  <Text style={styles.hotTvTextStyle}>惊悚电影</Text>
+                  <Text style={styles.movieTextStyle}>惊悚电影</Text>
                 </View>
               </TouchableOpacity>
             </View>
           </ScrollView>
           <ScrollView
             contentContainerStyle={{flex: 1}}
-            tabLabel={'搜优惠券'}
+            tabLabel={'淘宝优惠券'}
             key={'store'}
             showsVerticalScrollIndicator={false}>
             <Store />
@@ -525,6 +541,11 @@ const styles = StyleSheet.create({
   hotTvTextStyle: {
     fontSize: 9,
     color: '#B00020',
+  },
+  movieTextStyle: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#FFF',
   },
 });
 

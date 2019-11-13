@@ -6,6 +6,7 @@ import {
   Button,
   ToastAndroid,
   Linking,
+  BackHandler,
 } from 'react-native';
 import {WebView} from 'react-native-webview';
 
@@ -22,6 +23,18 @@ export default class Play extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
+  _playBackPress = () => {
+    this.props.navigation.goBack();
+  };
+
+  componentDidMount(): void {
+    BackHandler.addEventListener('hardwareBackPress', this._playBackPress);
+  }
+
+  componentWillUnmount(): void {
+    BackHandler.removeEventListener('hardwareBackPress', this._playBackPress);
+  }
 
   render() {
     const {navigation} = this.props;

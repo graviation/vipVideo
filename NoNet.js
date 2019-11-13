@@ -7,8 +7,8 @@ import {
   Modal,
   Dimensions,
   TouchableOpacity,
-  Linking,
   NativeModules,
+  BackHandler,
 } from 'react-native';
 import NetInfo, {NetInfoSubscription} from '@react-native-community/netinfo';
 import ApiUtil from './ApiUtil';
@@ -25,7 +25,7 @@ export default class NoNet extends React.Component {
         this.setState({showModal: true});
       } else {
         this.setState({showModal: false});
-        ApiUtil.initGlobalData();
+        // ApiUtil.initGlobalData();
       }
     });
   }
@@ -60,7 +60,10 @@ export default class NoNet extends React.Component {
           />
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => NativeModules.BaseModule.openSettings()}>
+            onPress={() => {
+              BackHandler.exitApp();
+              NativeModules.BaseModule.openSettings();
+            }}>
             <View
               style={{
                 backgroundColor: '#6200EE',

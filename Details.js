@@ -6,9 +6,12 @@ import {
   Button,
   BackHandler,
   ToastAndroid,
+  TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import {WebView} from 'react-native-webview';
 
+const {width, height} = Dimensions.get('window');
 export default class Details extends React.Component {
   static navigationOptions = {
     header: null,
@@ -20,11 +23,15 @@ export default class Details extends React.Component {
 
   handleBackPress = () => {
     // 如果当前页面是视频网站的首页，就要退到应用的首页去啦，不要在webview里跳转啦
+    console.log('Details页面监听到返回键按下');
+    console.log('videoUrl:', this.state.videoUrl);
     if (
       this.state.videoUrl.endsWith('.com/') ||
-      this.state.videoUrl.endsWith('.com')
+      this.state.videoUrl.endsWith('.com') ||
+      this.state.videoUrl.endsWith('search')
     ) {
-      return false;
+      console.log('Details页面返回false');
+      this.props.navigation.goBack();
     }
     this.refs.webView.goBack(); // 在webview中返回一页
     return true;
@@ -45,7 +52,7 @@ export default class Details extends React.Component {
         <StatusBar hidden={true} translucent={true} />
         <WebView
           ref={'webView'}
-          androidHardwareAccelerationDisabled={true}
+          androidHardwareAccelerationDisabled={false}
           source={{uri: this.props.navigation.getParam('url'), header: {}}}
           onNavigationStateChange={event => {
             const url = event.url;
@@ -71,16 +78,34 @@ export default class Details extends React.Component {
           }}
         />
         {this.state.showBtn ? (
-          <Button
-            color={'red'}
-            title={'VIP播放'}
+          <TouchableOpacity
             onPress={() =>
               navigation.navigate('Play', {
                 videoUrl: this.state.videoUrl,
                 jxUrl: navigation.getParam('jxUrl'),
               })
             }
-          />
+            style={{
+              position: 'absolute',
+              bottom: height / 2.5,
+              left: 10,
+              right: 10,
+            }}
+            activeOpacity={0.8}>
+            <View
+              style={{
+                height: 50,
+                backgroundColor: 'red',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 5,
+                padding: 20,
+              }}>
+              <Text style={{color: '#FFF', fontWeight: 'bold'}}>
+                VIP解析播放
+              </Text>
+            </View>
+          </TouchableOpacity>
         ) : null}
         {/*<Text>{navigation.getParam('jxUrl')}</Text>*/}
         {/*<Text>{this.state.videoUrl}</Text>*/}
