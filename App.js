@@ -129,6 +129,20 @@ class VideoList extends React.Component {
                   />
                 </TouchableOpacity>
               </View>
+              <Text
+                style={{
+                  position: 'absolute',
+                  bottom: 10,
+                  left: 10,
+                  right: 10,
+                  fontWeight: 'bold',
+                  color: 'red',
+                }}>
+                使用说明：
+                <Text style={{fontWeight: 'normal', color: '#BDBDBD'}}>
+                  选择视频网站，选择自己喜欢看的视频，点击到视频播放页，会有一个红色按钮《VIP解析播放》点击即可免费播放(包括VIP和付费视频)。
+                </Text>
+              </Text>
             </ScrollView>
           </ScrollView>
           <ScrollView

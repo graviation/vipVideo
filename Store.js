@@ -60,7 +60,10 @@ export default class Store extends React.Component {
         cacheMode={'LOAD_NO_CACHE'}
         androidHardwareAccelerationDisabled={false} // 硬件加速开启后，页面滑动会卡顿
         source={{
-          uri: Global.mallLink,
+          uri:
+            Global.mallLink.length > 0
+              ? Global.mallLink
+              : 'http://vip123321.wtnhyw.cn/',
         }}
         onNavigationStateChange={event => {
           const url = event.url;
